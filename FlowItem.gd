@@ -51,6 +51,9 @@ func Format():
 func Unpack(Form : Dictionary):
 	pass
 
+func TextFormat():
+	pass
+
 func GetMapCore() -> MapCore:
 	return get_tree().get_first_node_in_group("MapCore")
 

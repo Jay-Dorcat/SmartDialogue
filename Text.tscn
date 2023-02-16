@@ -70,18 +70,33 @@ text = "Collapse"
 
 [node name="Textbox" type="TextEdit" parent="Margin/HBox/VBox"]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(0, 200)
 layout_mode = 2
 context_menu_enabled = false
 scroll_smooth = true
 scroll_v_scroll_speed = 10.0
+scroll_fit_content_height = true
 caret_blink = true
 caret_blink_interval = 0.45
 
-[node name="ResizeBar" type="Button" parent="Margin/HBox/VBox"]
+[node name="TextPreview" type="RichTextLabel" parent="Margin/HBox/VBox"]
 unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 35)
 layout_mode = 2
-keep_pressed_outside = true
+focus_mode = 2
+bbcode_enabled = true
+fit_content = true
+selection_enabled = true
+
+[node name="Panel" type="Panel" parent="Margin/HBox/VBox/TextPreview"]
+self_modulate = Color(0, 0, 0, 0.486275)
+show_behind_parent = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
 
 [node name="Reorder" type="VBoxContainer" parent="Margin/HBox"]
 layout_mode = 2
@@ -99,6 +114,6 @@ size_flags_vertical = 3
 text = "v"
 
 [connection signal="pressed" from="Margin/HBox/VBox/HBox/Collapser" to="." method="ToggleCollapsed"]
+[connection signal="focus_exited" from="Margin/HBox/VBox/Textbox" to="." method="EditorUnfocused"]
 [connection signal="text_changed" from="Margin/HBox/VBox/Textbox" to="." method="HasChanged"]
-[connection signal="button_down" from="Margin/HBox/VBox/ResizeBar" to="." method="SetResizing" binds= [true]]
-[connection signal="button_up" from="Margin/HBox/VBox/ResizeBar" to="." method="SetResizing" binds= [false]]
+[connection signal="focus_entered" from="Margin/HBox/VBox/TextPreview" to="." method="PreviewFocused"]

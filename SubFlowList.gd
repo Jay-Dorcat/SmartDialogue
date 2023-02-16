@@ -1,8 +1,12 @@
 extends VBoxContainer
+class_name SubListNode
 
 @onready var TextScn : PackedScene = preload("res://Text.tscn")
 @onready var SelectionScn : PackedScene = load("res://Selection.tscn")
 @onready var JumpScn : PackedScene = preload("res://Jump.tscn")
+@onready var OperateScn : PackedScene = preload("res://Operator.tscn")
+@onready var BranchScn : PackedScene = load("res://Branch.tscn")
+@onready var TriggerScn : PackedScene = preload("res://Trigger.tscn")
 
 signal Changed()
 
@@ -18,6 +22,18 @@ func AddSelection():
 
 func AddJump():
 	AddScene(JumpScn)
+	Changed.emit()
+
+func AddOperator():
+	AddScene(OperateScn)
+	Changed.emit()
+
+func AddBranch():
+	AddScene(BranchScn)
+	Changed.emit()
+
+func AddTrigger():
+	AddScene(TriggerScn)
 	Changed.emit()
 
 func AddScene(PckScn : PackedScene):
@@ -46,6 +62,15 @@ func Unpack(List : Array[Dictionary]):
 				ItemScn = SelectionScn
 			"Jump":
 				ItemScn = JumpScn
+			"Operator":
+				ItemScn = OperateScn
+			"Branch":
+				ItemScn = BranchScn
+			"Trigger":
+				ItemScn = TriggerScn
+		if ItemScn == null:
+			push_error("No Matching Scene File Found for item:\n", i)
+			continue
 		var Item = AddScene(ItemScn)
 		Item.Unpack(i)
 
@@ -53,5 +78,19 @@ func GetDepthColour():
 	var Wrap : int = wrapi(Depth,0,5)
 	return Color.from_hsv(Wrap / 5.0,0.6,1.0)
 
+func IndentDepth():
+	var Total : String = "	"
+	for i in Depth:
+		Total += "	"
+	return Total
+
 func ChildChanged():
 	Changed.emit()
+
+func TextFormat():
+	var Str : String
+	if get_child_count() == 1 && Depth > 0:
+		return "; " + get_child(0).TextFormat()
+	for i in get_children():
+		Str += "\n" + IndentDepth() + i.TextFormat()
+	return Str

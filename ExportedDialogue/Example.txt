@@ -1,0 +1,50 @@
+<< Example >>
+
+# Begin
+	Var TalkCount = TalkCount + 1
+	If TalkCount = 1; Goto Meet_1
+	If TalkCount = 2; Goto Meet_2
+	If TalkCount = 3; Goto Meet_3
+	If TalkCount = 4; Goto Meet_4
+# Return
+
+# Meet_1
+	Text : Did... you just fall out of the sky? (\n) Are you okay!?
+	Selection : Where am I?...; Goto Where_am_I
+	Selection : I think I'm Okay...; Goto Okay_Somehow
+# Return
+
+# Where_am_I
+	Text : You've landed at the edge of Quadland (\n) I was just watching the void to relax (\n) until you fell from the sky!
+	If QAnswered; Goto Okay_Somehow
+	Var QAnswered = true
+	Text : But more importantly, are you okay?
+	Selection : I think I'm okay... Somehow; Goto Meet_1_End
+# End
+
+# Okay_Somehow
+	Text : Are you sure? (\n) It sounded like a very loud thud. (\n) I'm surprised you're walking!
+	If QAnswered; Goto Where_am_I
+	Var QAnswered = true
+	Selection : I think I'm okay... Somehow; Goto Meet_1_End
+# End
+
+# Meet_1_End
+	Text : If you want to find your way back (\n) to mainland you'll want to head  (\n) across the bridge and keep going.
+# End
+
+# Meet_2
+	Text : What are you still doing here? (\n) You can get all fixed up back at the Village.
+# End
+
+# Meet_3
+	Text : Do you need me to guide you back?
+	Selection : Yes please..; Text : Okay Follow me!
+	Selection : I think I'll be fine.; Text : Well I'll be here if you need me!
+# End
+
+# Meet_4
+	Text : Have you changed your mind? (\n) Do you want me to giude you back?
+	Goto Meet_3 [1]
+# End
+

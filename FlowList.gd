@@ -44,6 +44,7 @@ func Changed():
 		Save()
 
 func LoadProperties(Properties : Dictionary):
+	InstanceID = Properties.Instance
 	position = Properties.Position
 	SetRes(Properties.FlowList)
 	await ready
@@ -53,6 +54,7 @@ func Save():
 	if CurrentFlowListResource != null:
 		CurrentFlowListResource.SetData(%Name.text, %List.ListFormats(), InstanceID)
 	OwnerFlowMap.SetInstanceProperties(InstanceID,{
+		"Instance": InstanceID,
 		"Position": position,
 		"FlowList": CurrentFlowListResource
 	})
@@ -121,6 +123,11 @@ func Delete():
 	queue_free()
 
 func GetListItem(Index : int = 0):
-	if %List.get_child_count() < Index - 1:
+	if %List.get_child_count() < Index + 1:
 		return null
 	return %List.get_child(Index)
+
+func GetTextFormat():
+	var Str : String = "# " + CurrentFlowListResource.ListName.replace(" ", "_")
+	Str += %List.TextFormat() + "\n# End\n\n"
+	return Str

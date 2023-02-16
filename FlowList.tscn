@@ -1,12 +1,8 @@
 [gd_scene load_steps=6 format=3 uid="uid://8i635psls04d"]
 
-[ext_resource type="Script" path="res://FlowList.gd" id="1_6uss5"]
+[ext_resource type="Script" path="res://FlowList.gd" id="1_p5ix1"]
 [ext_resource type="PackedScene" uid="uid://yppcnsofu0m7" path="res://SubFlowList.tscn" id="2_gudjg"]
-
-[sub_resource type="LabelSettings" id="LabelSettings_t45tk"]
-font_size = 30
-outline_size = 10
-outline_color = Color(0, 0, 0, 1)
+[ext_resource type="PackedScene" uid="uid://dlwviryhqa8p7" path="res://FlowNodeSelect.tscn" id="3_r257a"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_pnvwx"]
 font_size = 60
@@ -21,15 +17,20 @@ outline_color = Color(0, 0, 0, 1)
 [node name="FlowList" type="Control"]
 layout_mode = 3
 anchors_preset = 0
-offset_right = 600.0
-offset_bottom = 400.0
-script = ExtResource("1_6uss5")
+offset_left = 2.0
+offset_top = 2.0
+offset_right = 373.0
+offset_bottom = 118.0
+script = ExtResource("1_p5ix1")
 
 [node name="BackPanel" type="PanelContainer" parent="."]
 self_modulate = Color(0.513726, 0.894118, 0.988235, 1)
 layout_mode = 1
-offset_right = 375.0
-offset_bottom = 116.0
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 
 [node name="Pages" type="MarginContainer" parent="BackPanel"]
 unique_name_in_owner = true
@@ -80,59 +81,10 @@ theme_override_constants/margin_bottom = 5
 unique_name_in_owner = true
 layout_mode = 2
 
-[node name="HBox" type="HBoxContainer" parent="BackPanel/Pages/FlowDisplay[0]/VBox"]
+[node name="FlowNodeSelect" parent="BackPanel/Pages/FlowDisplay[0]/VBox" node_paths=PackedStringArray("SubList") instance=ExtResource("3_r257a")]
 layout_mode = 2
-
-[node name="AddText" type="Label" parent="BackPanel/Pages/FlowDisplay[0]/VBox/HBox"]
-layout_mode = 2
-size_flags_horizontal = 3
-text = "+ Text"
-label_settings = SubResource("LabelSettings_t45tk")
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="Button" type="Button" parent="BackPanel/Pages/FlowDisplay[0]/VBox/HBox/AddText"]
-show_behind_parent = true
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="AddSelection" type="Label" parent="BackPanel/Pages/FlowDisplay[0]/VBox/HBox"]
-layout_mode = 2
-size_flags_horizontal = 3
-text = "+ Selection"
-label_settings = SubResource("LabelSettings_t45tk")
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="Button" type="Button" parent="BackPanel/Pages/FlowDisplay[0]/VBox/HBox/AddSelection"]
-show_behind_parent = true
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="AddJump" type="Label" parent="BackPanel/Pages/FlowDisplay[0]/VBox/HBox"]
-layout_mode = 2
-size_flags_horizontal = 3
-text = "+ Jump"
-label_settings = SubResource("LabelSettings_t45tk")
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="Button" type="Button" parent="BackPanel/Pages/FlowDisplay[0]/VBox/HBox/AddJump"]
-show_behind_parent = true
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
+size_flags_vertical = 3
+SubList = NodePath("../ListPanel/ListMargin/List")
 
 [node name="ResizeBar" type="Button" parent="BackPanel/Pages/FlowDisplay[0]"]
 layout_mode = 2
@@ -256,9 +208,6 @@ text = "Cancel
 [connection signal="pressed" from="BackPanel/Pages/FlowDisplay[0]/VBox/HBox2/Options" to="." method="Page" binds= [1]]
 [connection signal="Changed" from="BackPanel/Pages/FlowDisplay[0]/VBox/ListPanel/ListMargin/List" to="." method="Save"]
 [connection signal="Changed" from="BackPanel/Pages/FlowDisplay[0]/VBox/ListPanel/ListMargin/List" to="." method="SizeChanged"]
-[connection signal="pressed" from="BackPanel/Pages/FlowDisplay[0]/VBox/HBox/AddText/Button" to="BackPanel/Pages/FlowDisplay[0]/VBox/ListPanel/ListMargin/List" method="AddText"]
-[connection signal="pressed" from="BackPanel/Pages/FlowDisplay[0]/VBox/HBox/AddSelection/Button" to="BackPanel/Pages/FlowDisplay[0]/VBox/ListPanel/ListMargin/List" method="AddSelection"]
-[connection signal="pressed" from="BackPanel/Pages/FlowDisplay[0]/VBox/HBox/AddJump/Button" to="BackPanel/Pages/FlowDisplay[0]/VBox/ListPanel/ListMargin/List" method="AddJump"]
 [connection signal="button_down" from="BackPanel/Pages/FlowDisplay[0]/ResizeBar" to="." method="SetResizing" binds= [true]]
 [connection signal="button_up" from="BackPanel/Pages/FlowDisplay[0]/ResizeBar" to="." method="SetResizing" binds= [false]]
 [connection signal="pressed" from="BackPanel/Pages/Settings[1]/Margin/SettingsButtons/Save" to="." method="Save"]

@@ -2,14 +2,10 @@
 
 [ext_resource type="PackedScene" uid="uid://yppcnsofu0m7" path="res://SubFlowList.tscn" id="1_ubg26"]
 [ext_resource type="Script" path="res://Selection.gd" id="1_ue5wh"]
+[ext_resource type="PackedScene" uid="uid://dlwviryhqa8p7" path="res://FlowNodeSelect.tscn" id="2_rsgiw"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_6exlk"]
 font_size = 20
-outline_size = 10
-outline_color = Color(0, 0, 0, 1)
-
-[sub_resource type="LabelSettings" id="LabelSettings_kox7l"]
-font_size = 30
 outline_size = 10
 outline_color = Color(0, 0, 0, 1)
 
@@ -75,44 +71,9 @@ unique_name_in_owner = true
 layout_mode = 2
 placeholder_text = "Select Prompt"
 
-[node name="AddButtons" type="HBoxContainer" parent="Margin/HBox/LeftArea"]
-unique_name_in_owner = true
+[node name="FlowNodeSelect" parent="Margin/HBox/LeftArea" node_paths=PackedStringArray("SubList") instance=ExtResource("2_rsgiw")]
 layout_mode = 2
-size_flags_vertical = 10
-
-[node name="AddText" type="Label" parent="Margin/HBox/LeftArea/AddButtons"]
-layout_mode = 2
-size_flags_horizontal = 3
-text = "+ Text"
-label_settings = SubResource("LabelSettings_kox7l")
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="Button" type="Button" parent="Margin/HBox/LeftArea/AddButtons/AddText"]
-show_behind_parent = true
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="AddSelection" type="Label" parent="Margin/HBox/LeftArea/AddButtons"]
-layout_mode = 2
-size_flags_horizontal = 3
-text = "+ Selection"
-label_settings = SubResource("LabelSettings_kox7l")
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="Button" type="Button" parent="Margin/HBox/LeftArea/AddButtons/AddSelection"]
-show_behind_parent = true
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
+SubList = NodePath("../../RightPanel/Margin/List")
 
 [node name="RightPanel" type="PanelContainer" parent="Margin/HBox"]
 unique_name_in_owner = true
@@ -148,6 +109,4 @@ text = "v"
 
 [connection signal="pressed" from="Margin/HBox/LeftArea/HBoxContainer/Collapser" to="." method="ToggleCollapsed"]
 [connection signal="text_changed" from="Margin/HBox/LeftArea/Prompt" to="." method="HasChanged" unbinds=1]
-[connection signal="pressed" from="Margin/HBox/LeftArea/AddButtons/AddText/Button" to="Margin/HBox/RightPanel/Margin/List" method="AddText"]
-[connection signal="pressed" from="Margin/HBox/LeftArea/AddButtons/AddSelection/Button" to="Margin/HBox/RightPanel/Margin/List" method="AddSelection"]
 [connection signal="Changed" from="Margin/HBox/RightPanel/Margin/List" to="." method="HasChanged"]

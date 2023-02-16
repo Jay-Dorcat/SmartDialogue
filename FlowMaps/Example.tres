@@ -1,0 +1,233 @@
+[gd_resource type="Resource" script_class="FlowMapResource" load_steps=11 format=3]
+
+[ext_resource type="Script" path="res://FlowListResource.gd" id="1_1dsd0"]
+[ext_resource type="Script" path="res://FlowMapResource.gd" id="1_lcgrb"]
+
+[sub_resource type="Resource" id="Resource_21kek"]
+script = ExtResource("1_1dsd0")
+ListName = "Begin"
+ListItems = Array[Dictionary]([{
+"AssignVar": "TalkCount",
+"Operations": "TalkCount + 1",
+"Type": "Operator"
+}, {
+"ListItems": Array[Dictionary]([{
+"FlowList": "Meet 1",
+"Offset": 0.0,
+"Type": "Jump"
+}]),
+"Query": "TalkCount = 1",
+"Type": "Branch"
+}, {
+"ListItems": Array[Dictionary]([{
+"FlowList": "Meet 2",
+"Offset": 0.0,
+"Type": "Jump"
+}]),
+"Query": "TalkCount = 2",
+"Type": "Branch"
+}, {
+"ListItems": Array[Dictionary]([{
+"FlowList": "Meet 3",
+"Offset": 0.0,
+"Type": "Jump"
+}]),
+"Query": "TalkCount = 3",
+"Type": "Branch"
+}, {
+"ListItems": Array[Dictionary]([{
+"FlowList": "Meet 4",
+"Offset": 0.0,
+"Type": "Jump"
+}]),
+"Query": "TalkCount = 4",
+"Type": "Branch"
+}])
+
+[sub_resource type="Resource" id="Resource_m3dge"]
+script = ExtResource("1_1dsd0")
+ListName = "Meet 1"
+ListItems = Array[Dictionary]([{
+"Text": "Did... you just fall out of the sky?
+Are you okay!?",
+"Type": "Text"
+}, {
+"ListItems": Array[Dictionary]([{
+"FlowList": "Where am I",
+"Offset": 0.0,
+"Type": "Jump"
+}]),
+"Prompt": "Where am I?...",
+"Type": "Selection"
+}, {
+"ListItems": Array[Dictionary]([{
+"FlowList": "Okay Somehow",
+"Offset": 0.0,
+"Type": "Jump"
+}]),
+"Prompt": "I think I'm Okay...",
+"Type": "Selection"
+}])
+
+[sub_resource type="Resource" id="Resource_3j60e"]
+script = ExtResource("1_1dsd0")
+ListName = "Where am I"
+ListItems = Array[Dictionary]([{
+"Text": "You've landed at the edge of Quadland
+I was just watching the void to relax
+until you fell from the sky!",
+"Type": "Text"
+}, {
+"ListItems": Array[Dictionary]([{
+"FlowList": "Okay Somehow",
+"Offset": 0.0,
+"Type": "Jump"
+}]),
+"Query": "QAnswered",
+"Type": "Branch"
+}, {
+"AssignVar": "QAnswered",
+"Operations": "true",
+"Type": "Operator"
+}, {
+"Text": "But more importantly, are you okay?",
+"Type": "Text"
+}, {
+"ListItems": Array[Dictionary]([{
+"FlowList": "Meet 1 End",
+"Offset": 0.0,
+"Type": "Jump"
+}]),
+"Prompt": "I think I'm okay... Somehow",
+"Type": "Selection"
+}])
+
+[sub_resource type="Resource" id="Resource_vowpx"]
+script = ExtResource("1_1dsd0")
+ListName = "Okay Somehow"
+ListItems = Array[Dictionary]([{
+"Text": "Are you sure?
+It sounded like a very loud thud.
+I'm surprised you're walking!",
+"Type": "Text"
+}, {
+"ListItems": Array[Dictionary]([{
+"FlowList": "Where am I",
+"Offset": 0.0,
+"Type": "Jump"
+}]),
+"Query": "QAnswered",
+"Type": "Branch"
+}, {
+"AssignVar": "QAnswered",
+"Operations": "true",
+"Type": "Operator"
+}, {
+"ListItems": Array[Dictionary]([{
+"FlowList": "Meet 1 End",
+"Offset": 0.0,
+"Type": "Jump"
+}]),
+"Prompt": "I think I'm okay... Somehow",
+"Type": "Selection"
+}])
+
+[sub_resource type="Resource" id="Resource_pa418"]
+script = ExtResource("1_1dsd0")
+ListName = "Meet 1 End"
+ListItems = Array[Dictionary]([{
+"Text": "If you want to find your way back
+to mainland you'll want to head 
+across the bridge and keep going.",
+"Type": "Text"
+}])
+
+[sub_resource type="Resource" id="Resource_2pkny"]
+script = ExtResource("1_1dsd0")
+ListName = "Meet 2"
+ListItems = Array[Dictionary]([{
+"Text": "What are you still doing here?
+You can get all fixed up back at the Village.",
+"Type": "Text"
+}])
+
+[sub_resource type="Resource" id="Resource_cjmlh"]
+script = ExtResource("1_1dsd0")
+ListName = "Meet 3"
+ListItems = Array[Dictionary]([{
+"Text": "Do you need me to guide you back?",
+"Type": "Text"
+}, {
+"ListItems": Array[Dictionary]([{
+"Text": "Okay Follow me!",
+"Type": "Text"
+}]),
+"Prompt": "Yes please..",
+"Type": "Selection"
+}, {
+"ListItems": Array[Dictionary]([{
+"Text": "Well I'll be here if you need me!",
+"Type": "Text"
+}]),
+"Prompt": "I think I'll be fine.",
+"Type": "Selection"
+}])
+
+[sub_resource type="Resource" id="Resource_ohifu"]
+script = ExtResource("1_1dsd0")
+ListName = "Meet 4"
+ListItems = Array[Dictionary]([{
+"Text": "Have you changed your mind?
+Do you want me to giude you back?",
+"Type": "Text"
+}, {
+"FlowList": "Meet 3",
+"Offset": 1.0,
+"Type": "Jump"
+}])
+
+[resource]
+script = ExtResource("1_lcgrb")
+MapName = &"Example"
+FileName = &"Example"
+AllFlowLists = Array[ExtResource("1_1dsd0")]([SubResource("Resource_21kek"), SubResource("Resource_m3dge"), SubResource("Resource_3j60e"), SubResource("Resource_vowpx"), SubResource("Resource_pa418"), SubResource("Resource_2pkny"), SubResource("Resource_cjmlh"), SubResource("Resource_ohifu")])
+FlowListInstances = Array[Dictionary]([{
+"FlowList": SubResource("Resource_21kek"),
+"Instance": 0,
+"Position": Vector2(-609.06, 48.6365)
+}, {
+"FlowList": SubResource("Resource_m3dge"),
+"Instance": 1,
+"Position": Vector2(176.875, -448.082)
+}, {
+"FlowList": SubResource("Resource_3j60e"),
+"Instance": 2,
+"Position": Vector2(937.619, -687.381)
+}, {
+"FlowList": SubResource("Resource_vowpx"),
+"Instance": 3,
+"Position": Vector2(926.483, 142.77)
+}, {
+"FlowList": SubResource("Resource_pa418"),
+"Instance": 4,
+"Position": Vector2(1665.62, -199.832)
+}, {
+"FlowList": SubResource("Resource_2pkny"),
+"Instance": 5,
+"Position": Vector2(44.0139, -21.3347)
+}, {
+"FlowList": SubResource("Resource_cjmlh"),
+"Instance": 6,
+"Position": Vector2(21.9942, 356.49)
+}, {
+"FlowList": SubResource("Resource_ohifu"),
+"Instance": 7,
+"Position": Vector2(-320.834, 862.99)
+}])
+Constants = {}
+Local = {
+"QAnswered": false,
+"TalkCount": 0
+}
+Global = {}
+Groups = {}

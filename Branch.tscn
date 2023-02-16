@@ -1,0 +1,109 @@
+[gd_scene load_steps=5 format=3 uid="uid://dqhmgm4cmp0lt"]
+
+[ext_resource type="Script" path="res://Branch.gd" id="1_uqld6"]
+[ext_resource type="PackedScene" uid="uid://dlwviryhqa8p7" path="res://FlowNodeSelect.tscn" id="2_3eg3g"]
+[ext_resource type="PackedScene" uid="uid://yppcnsofu0m7" path="res://SubFlowList.tscn" id="3_hbjmj"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_shjn6"]
+font_size = 20
+outline_size = 10
+outline_color = Color(0, 0, 0, 1)
+
+[node name="Branch" type="PanelContainer" node_paths=PackedStringArray("UpButton", "DownButton", "DeleteButton", "ColouredPanel")]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = -795.0
+offset_bottom = -571.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_uqld6")
+UpButton = NodePath("Margin/HBox/Reorder/MoveUp")
+DownButton = NodePath("Margin/HBox/Reorder/MoveDown")
+DeleteButton = NodePath("Margin/HBox/VBox/HBox2/DeleteButton")
+ColouredPanel = NodePath(".")
+
+[node name="Margin" type="MarginContainer" parent="."]
+layout_mode = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="HBox" type="HBoxContainer" parent="Margin"]
+layout_mode = 2
+
+[node name="VBox" type="VBoxContainer" parent="Margin/HBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="HBox2" type="HBoxContainer" parent="Margin/HBox/VBox"]
+layout_mode = 2
+
+[node name="DeleteButton" type="Button" parent="Margin/HBox/VBox/HBox2"]
+self_modulate = Color(0.988235, 0.431373, 0.431373, 1)
+custom_minimum_size = Vector2(30, 30)
+layout_mode = 2
+text = "X"
+
+[node name="Label" type="Label" parent="Margin/HBox/VBox/HBox2"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Branch"
+label_settings = SubResource("LabelSettings_shjn6")
+horizontal_alignment = 1
+
+[node name="Panel" type="Panel" parent="Margin/HBox/VBox/HBox2/Label"]
+self_modulate = Color(0.988974, 0.988974, 0.988974, 0.490196)
+show_behind_parent = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="HBox" type="HBoxContainer" parent="Margin/HBox/VBox"]
+layout_mode = 2
+
+[node name="Query" type="LineEdit" parent="Margin/HBox/VBox/HBox"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+placeholder_text = "Query"
+
+[node name="FlowNodeSelect" parent="Margin/HBox/VBox" node_paths=PackedStringArray("SubList") instance=ExtResource("2_3eg3g")]
+layout_mode = 2
+SubList = NodePath("../../RightPanel/Margin/List")
+
+[node name="RightPanel" type="PanelContainer" parent="Margin/HBox"]
+unique_name_in_owner = true
+self_modulate = Color(0, 0, 0, 0.490196)
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Margin" type="MarginContainer" parent="Margin/HBox/RightPanel"]
+layout_mode = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="List" parent="Margin/HBox/RightPanel/Margin" instance=ExtResource("3_hbjmj")]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="Reorder" type="VBoxContainer" parent="Margin/HBox"]
+layout_mode = 2
+
+[node name="MoveUp" type="Button" parent="Margin/HBox/Reorder"]
+custom_minimum_size = Vector2(50, 0)
+layout_mode = 2
+size_flags_vertical = 3
+text = "^"
+
+[node name="MoveDown" type="Button" parent="Margin/HBox/Reorder"]
+custom_minimum_size = Vector2(50, 0)
+layout_mode = 2
+size_flags_vertical = 3
+text = "v"

@@ -44,6 +44,7 @@ theme_override_constants/separation = 15
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Margin/HBox"]
 layout_mode = 2
+size_flags_horizontal = 3
 theme_override_constants/separation = 15
 
 [node name="HBoxContainer" type="HBoxContainer" parent="Margin/HBox/VBoxContainer"]
@@ -78,6 +79,7 @@ label_settings = SubResource("LabelSettings_6gce8")
 
 [node name="FlowLists" type="OptionButton" parent="Margin/HBox/VBoxContainer/FlowList"]
 unique_name_in_owner = true
+custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
 size_flags_horizontal = 10
 alignment = 1
@@ -98,11 +100,6 @@ size_flags_horizontal = 10
 alignment = 1
 custom_arrow_step = 1.0
 select_all_on_focus = true
-
-[node name="Button" type="Button" parent="Margin/HBox"]
-layout_mode = 2
-size_flags_horizontal = 3
-text = "Picker"
 
 [node name="Reorder" type="VBoxContainer" parent="Margin/HBox"]
 layout_mode = 2

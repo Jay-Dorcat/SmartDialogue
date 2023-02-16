@@ -23,19 +23,21 @@ func _process(delta):
 	$MapBG.size = GlobalScale
 
 func NewEmptyFlowList():
-	var Instance = FlowMapRes.CreateNewInstance({
+	var Index = FlowMapRes.CreateNewInstance({
+		"Instance": FlowMapRes.NewUniqueInstanceID(),
 		"Position": $Camera.position,
 		"FlowList": FlowListResource.new()
 	})
-	add_child(FlowMapRes.CreateObjFromInstance(Instance))
+	add_child(FlowMapRes.CreateObjFromIndex(Index))
 	print(FlowMapRes)
 
 func NewFlowListInstance(Index : int):
-	var Instance = FlowMapRes.CreateNewInstance({
+	var InstIndex = FlowMapRes.CreateNewInstance({
+		"Instance": FlowMapRes.NewUniqueInstanceID(),
 		"Position": $Camera.position,
 		"FlowList": FlowMapRes.AllFlowLists[Index]
 	})
-	add_child(FlowMapRes.CreateObjFromInstance(Instance))
+	add_child(FlowMapRes.CreateObjFromIndex(InstIndex))
 
 var InstanceIndex : int = -1
 
@@ -74,7 +76,6 @@ func Save():
 
 func GetSavedFlowMaps():
 	var Files := DirAccess.get_files_at(SAVE_DIRECTORY)
-	print(Files)
 	return Files
 
 func OpenFlowMapPanel():
@@ -86,7 +87,6 @@ func OpenFlowMapPanel():
 func LoadSelected():
 	var LoadIndex : int = %MapSelect.selected
 	Load(SAVE_DIRECTORY + GetSavedFlowMaps()[LoadIndex])
-	Reload()
 
 func Reload():
 	for c in get_children():
@@ -103,6 +103,9 @@ func CloseFlowMapPanel():
 
 func Load(FilePath : String):
 	FlowMapRes = FlowMapResource.Load(FilePath)
+	if FlowMapRes == null:
+		push_warning("Could Not Load File: ",FilePath)
+		FlowMapRes = FlowMapResource.new()
 	%MapName.text = FlowMapRes.MapName
 	Reload()
 
@@ -115,3 +118,33 @@ func GetFlowListNode(Instance : int = 0):
 			if c.InstanceID == Instance:
 				return c
 	return null
+
+func OpenVariablesBlock():
+	%VariablesBlock.visible = true
+	%Groups.CreateFromFlowMap(FlowMapRes)
+
+func CloseVariablesBlock():
+	%Groups.SaveToFlowMap(FlowMapRes)
+	%VariablesBlock.visible = false
+
+func NewFlowMap():
+	FlowMapRes = FlowMapResource.new()
+	Reload()
+
+func TextFormat():
+	var Str : String = "<< %s >>\n\n" % FlowMapRes.MapName
+	var CreatedLists : Array[FlowListResource]
+	for c in get_children():
+		if c is FlowListNode:
+			if !CreatedLists.has(c.CurrentFlowListResource):
+				CreatedLists.append(c.CurrentFlowListResource)
+				Str += c.GetTextFormat()
+	return Str
+
+func ExportTextFormat():
+	var Text = TextFormat()
+	print(Text)
+	
+	var TxtFile := FileAccess.open("res://ExportedDialogue/%s.txt" % FlowMapRes.MapName, FileAccess.WRITE)
+	TxtFile.store_string(Text)
+	TxtFile = null

@@ -7,7 +7,8 @@ var AllInstances : PackedInt32Array
 var Offset : int = 0
 
 func _ready():
-	GetMapCore().FlowMapRes.SetOptionsAsLists(%FlowLists)
+	GetMapCore().FlowMapRes.FlowListsChanged.connect(ReloadLists)
+	ReloadLists()
 	super()
 
 func _process(delta):
@@ -19,16 +20,26 @@ func _process(delta):
 	CreateLines()
 
 func Format():
+	var ListName : String = FlowListJump.ListName if FlowListJump != null else ""
 	return {
 		"Type": "Jump",
-		"FlowList": FlowListJump,
+		"FlowList": ListName,
 		"Offset": %StartOffset.value
 	}
 
 func Unpack(Form : Dictionary):
-	FlowListJump = Form.FlowList
+	for i in GetMapCore().FlowMapRes.AllFlowLists:
+		if i.ListName == Form.FlowList:
+			FlowListJump = i 
 	%StartOffset.value = Form.Offset
-	GetMapCore().FlowMapRes.SetOptionsAsLists(%FlowLists)
+	ReloadLists()
+
+func TextFormat():
+	var ListName : String = FlowListJump.ListName.replace(" ", "_") if FlowListJump != null else ""
+	if Offset == 0:
+		return "Goto %s" % [ListName]
+	else:
+		return "Goto %s [%s]" % [ListName,str(Offset)]
 
 func CreateLines():
 	%LineStart.ClearLines()
@@ -49,3 +60,14 @@ func FlowListSelect(Index : int = -1):
 func SetOffset(Value : int):
 	Offset = Value
 	Changed.emit()
+
+func ReloadLists():
+	GetMapCore().FlowMapRes.SetOptionsAsLists(%FlowLists)
+	
+	if FlowListJump == null:
+		return
+	
+	for i in %FlowLists.item_count:
+		if %FlowLists.get_item_text(i) == FlowListJump.ListName:
+			%FlowLists.selected = i
+			break

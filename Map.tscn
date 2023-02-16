@@ -1,9 +1,10 @@
-[gd_scene load_steps=7 format=3 uid="uid://w6d35rjsmqgy"]
+[gd_scene load_steps=8 format=3 uid="uid://w6d35rjsmqgy"]
 
 [ext_resource type="Script" path="res://FlowMap.gd" id="1_2f2c3"]
 [ext_resource type="Texture2D" uid="uid://ha5n1xqim636" path="res://GridSmall.png" id="2_ilfx7"]
 [ext_resource type="Script" path="res://Camera.gd" id="2_vp24c"]
 [ext_resource type="Texture2D" uid="uid://rxsyrxthkuuh" path="res://GridMedium.png" id="3_lnqsc"]
+[ext_resource type="Script" path="res://VariableGroups.gd" id="5_qp1io"]
 
 [sub_resource type="ButtonGroup" id="ButtonGroup_rtwqo"]
 
@@ -30,7 +31,7 @@ grow_vertical = 2
 mouse_filter = 2
 
 [node name="TopPanel" type="PanelContainer" parent="Camera/UILayer"]
-self_modulate = Color(0.152941, 0.180392, 0.254902, 1)
+self_modulate = Color(0.658824, 0.745098, 0.988235, 1)
 anchors_preset = 10
 anchor_right = 1.0
 offset_bottom = 71.0
@@ -48,11 +49,15 @@ layout_mode = 2
 
 [node name="Save" type="Button" parent="Camera/UILayer/TopPanel/HBox"]
 layout_mode = 2
-text = "Save"
+text = " Save "
 
 [node name="Load" type="Button" parent="Camera/UILayer/TopPanel/HBox"]
 layout_mode = 2
-text = "Load"
+text = " Load "
+
+[node name="New" type="Button" parent="Camera/UILayer/TopPanel/HBox"]
+layout_mode = 2
+text = " New "
 
 [node name="VSeparator" type="VSeparator" parent="Camera/UILayer/TopPanel/HBox"]
 layout_mode = 2
@@ -60,7 +65,23 @@ theme_override_constants/separation = 50
 
 [node name="NewEmpty" type="Button" parent="Camera/UILayer/TopPanel/HBox"]
 layout_mode = 2
-text = "New Flow List"
+text = " New Flow List "
+
+[node name="VSeparator2" type="VSeparator" parent="Camera/UILayer/TopPanel/HBox"]
+layout_mode = 2
+theme_override_constants/separation = 50
+
+[node name="Variables" type="Button" parent="Camera/UILayer/TopPanel/HBox"]
+layout_mode = 2
+text = " Variables "
+
+[node name="VSeparator3" type="VSeparator" parent="Camera/UILayer/TopPanel/HBox"]
+layout_mode = 2
+theme_override_constants/separation = 50
+
+[node name="Export" type="Button" parent="Camera/UILayer/TopPanel/HBox"]
+layout_mode = 2
+text = " Export .txt "
 
 [node name="FlowListBlock" type="ColorRect" parent="Camera/UILayer"]
 unique_name_in_owner = true
@@ -106,6 +127,7 @@ text = "New Flow List Instance"
 
 [node name="HBox" type="HBoxContainer" parent="Camera/UILayer/FlowListBlock/Panel/Margin/VBox"]
 layout_mode = 2
+theme_override_constants/separation = 15
 
 [node name="EmptyCheck" type="CheckBox" parent="Camera/UILayer/FlowListBlock/Panel/Margin/VBox/HBox"]
 unique_name_in_owner = true
@@ -113,7 +135,7 @@ layout_mode = 2
 size_flags_horizontal = 3
 button_pressed = true
 button_group = SubResource("ButtonGroup_rtwqo")
-text = "Empty"
+text = "Empty "
 
 [node name="InstanceCheck" type="CheckBox" parent="Camera/UILayer/FlowListBlock/Panel/Margin/VBox/HBox"]
 unique_name_in_owner = true
@@ -121,7 +143,7 @@ layout_mode = 2
 size_flags_horizontal = 3
 disabled = true
 button_group = SubResource("ButtonGroup_dendm")
-text = "Instance"
+text = "Instance "
 
 [node name="InstanceSelect" type="OptionButton" parent="Camera/UILayer/FlowListBlock/Panel/Margin/VBox"]
 unique_name_in_owner = true
@@ -130,6 +152,7 @@ layout_mode = 2
 
 [node name="HBox2" type="HBoxContainer" parent="Camera/UILayer/FlowListBlock/Panel/Margin/VBox"]
 layout_mode = 2
+theme_override_constants/separation = 15
 
 [node name="Create" type="Button" parent="Camera/UILayer/FlowListBlock/Panel/Margin/VBox/HBox2"]
 self_modulate = Color(0.47451, 0.988235, 0.611765, 1)
@@ -207,8 +230,70 @@ size_flags_horizontal = 3
 text = "Cancel
 "
 
+[node name="VariablesBlock" type="ColorRect" parent="Camera/UILayer"]
+unique_name_in_owner = true
+visible = false
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.501961)
+
+[node name="Panel" type="PanelContainer" parent="Camera/UILayer/VariablesBlock"]
+self_modulate = Color(0.184314, 0.176471, 0.282353, 1)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -93.5
+offset_top = -74.0
+offset_right = 93.5
+offset_bottom = 74.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Margin" type="MarginContainer" parent="Camera/UILayer/VariablesBlock/Panel"]
+layout_mode = 2
+size_flags_vertical = 4
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="VBox" type="VBoxContainer" parent="Camera/UILayer/VariablesBlock/Panel/Margin"]
+layout_mode = 2
+size_flags_vertical = 4
+theme_override_constants/separation = 25
+
+[node name="Title" type="Label" parent="Camera/UILayer/VariablesBlock/Panel/Margin/VBox"]
+layout_mode = 2
+text = "Variables"
+horizontal_alignment = 1
+
+[node name="Button" type="Button" parent="Camera/UILayer/VariablesBlock/Panel/Margin/VBox"]
+layout_mode = 2
+text = "New Group"
+
+[node name="Groups" type="HBoxContainer" parent="Camera/UILayer/VariablesBlock/Panel/Margin/VBox"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_constants/separation = 15
+script = ExtResource("5_qp1io")
+
+[node name="HBox2" type="HBoxContainer" parent="Camera/UILayer/VariablesBlock/Panel/Margin/VBox"]
+layout_mode = 2
+
+[node name="Exit" type="Button" parent="Camera/UILayer/VariablesBlock/Panel/Margin/VBox/HBox2"]
+self_modulate = Color(0.988235, 0.541176, 0.541176, 1)
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Exit"
+
 [node name="MapBG" type="TextureRect" parent="."]
-self_modulate = Color(0.52549, 0.929412, 0.988235, 1)
+self_modulate = Color(0.121569, 0.121569, 0.121569, 1)
 offset_right = 40.0
 offset_bottom = 40.0
 mouse_filter = 2
@@ -217,6 +302,8 @@ stretch_mode = 1
 [connection signal="pressed" from="Camera/UILayer/TopPanel/HBox/Save" to="." method="Save"]
 [connection signal="pressed" from="Camera/UILayer/TopPanel/HBox/Load" to="." method="OpenFlowMapPanel"]
 [connection signal="pressed" from="Camera/UILayer/TopPanel/HBox/NewEmpty" to="." method="OpenNewFlowListPanel"]
+[connection signal="pressed" from="Camera/UILayer/TopPanel/HBox/Variables" to="." method="OpenVariablesBlock"]
+[connection signal="pressed" from="Camera/UILayer/TopPanel/HBox/Export" to="." method="ExportTextFormat"]
 [connection signal="pressed" from="Camera/UILayer/FlowListBlock/Panel/Margin/VBox/HBox/EmptyCheck" to="." method="SetInstanceIndex" binds= [-1]]
 [connection signal="pressed" from="Camera/UILayer/FlowListBlock/Panel/Margin/VBox/HBox/InstanceCheck" to="." method="SetInstanceIndex" binds= [0]]
 [connection signal="item_selected" from="Camera/UILayer/FlowListBlock/Panel/Margin/VBox/InstanceSelect" to="." method="SetInstanceIndex"]
@@ -224,3 +311,5 @@ stretch_mode = 1
 [connection signal="pressed" from="Camera/UILayer/FlowListBlock/Panel/Margin/VBox/HBox2/Cancel" to="." method="CloseNewFlowListPanel"]
 [connection signal="pressed" from="Camera/UILayer/FlowMapBlock/Panel/Margin/VBox/HBox2/Load" to="." method="LoadSelected"]
 [connection signal="pressed" from="Camera/UILayer/FlowMapBlock/Panel/Margin/VBox/HBox2/Cancel" to="." method="CloseFlowMapPanel"]
+[connection signal="pressed" from="Camera/UILayer/VariablesBlock/Panel/Margin/VBox/Button" to="Camera/UILayer/VariablesBlock/Panel/Margin/VBox/Groups" method="CreateNewGroup"]
+[connection signal="pressed" from="Camera/UILayer/VariablesBlock/Panel/Margin/VBox/HBox2/Exit" to="." method="CloseVariablesBlock"]

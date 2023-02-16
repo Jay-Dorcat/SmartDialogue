@@ -51,3 +51,6 @@ func Format():
 func Unpack(Form : Dictionary):
 	%Prompt.text = Form.Prompt
 	%List.Unpack(Form.ListItems)
+
+func TextFormat():
+	return "Selection : %s%s" % [%Prompt.text,%List.TextFormat()]
