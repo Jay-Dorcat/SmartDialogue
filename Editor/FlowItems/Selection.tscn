@@ -1,0 +1,112 @@
+[gd_scene load_steps=5 format=3]
+
+[ext_resource type="PackedScene" uid="uid://bv5vo2hqboxna" path="res://Editor/FlowItems/SubFlowList.tscn" id="1_ubg26"]
+[ext_resource type="Script" path="res://Editor/FlowItems/Selection.gd" id="1_ue5wh"]
+[ext_resource type="PackedScene" path="res://Editor/FlowItems/FlowNodeSelect.tscn" id="2_rsgiw"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_6exlk"]
+font_size = 20
+outline_size = 10
+outline_color = Color(0, 0, 0, 1)
+
+[node name="Selection" type="PanelContainer" node_paths=PackedStringArray("UpButton", "DownButton", "DeleteButton", "ColouredPanel")]
+self_modulate = Color(0.592157, 0.258824, 0.717647, 1)
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_ue5wh")
+UpButton = NodePath("Margin/HBox/Reorder/MoveUp")
+DownButton = NodePath("Margin/HBox/Reorder/MoveDown")
+DeleteButton = NodePath("Margin/HBox/LeftArea/HBoxContainer/DeleteButton")
+ColouredPanel = NodePath(".")
+
+[node name="Margin" type="MarginContainer" parent="."]
+layout_mode = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="HBox" type="HBoxContainer" parent="Margin"]
+layout_mode = 2
+
+[node name="LeftArea" type="VBoxContainer" parent="Margin/HBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Margin/HBox/LeftArea"]
+layout_mode = 2
+
+[node name="DeleteButton" type="Button" parent="Margin/HBox/LeftArea/HBoxContainer"]
+self_modulate = Color(0.988235, 0.431373, 0.431373, 1)
+custom_minimum_size = Vector2(30, 30)
+layout_mode = 2
+text = "X"
+
+[node name="LeftPanel" type="PanelContainer" parent="Margin/HBox/LeftArea/HBoxContainer"]
+self_modulate = Color(0.988235, 0.988235, 0.988235, 0.490196)
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="VBox" type="VBoxContainer" parent="Margin/HBox/LeftArea/HBoxContainer/LeftPanel"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Margin/HBox/LeftArea/HBoxContainer/LeftPanel/VBox"]
+layout_mode = 2
+text = "Selection"
+label_settings = SubResource("LabelSettings_6exlk")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Collapser" type="Button" parent="Margin/HBox/LeftArea/HBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+text = "Collapse"
+
+[node name="Prompt" type="LineEdit" parent="Margin/HBox/LeftArea"]
+unique_name_in_owner = true
+layout_mode = 2
+placeholder_text = "Select Prompt"
+
+[node name="FlowNodeSelect" parent="Margin/HBox/LeftArea" node_paths=PackedStringArray("SubList") instance=ExtResource("2_rsgiw")]
+layout_mode = 2
+SubList = NodePath("../../RightPanel/Margin/List")
+
+[node name="RightPanel" type="PanelContainer" parent="Margin/HBox"]
+unique_name_in_owner = true
+self_modulate = Color(0, 0, 0, 0.490196)
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Margin" type="MarginContainer" parent="Margin/HBox/RightPanel"]
+layout_mode = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="List" parent="Margin/HBox/RightPanel/Margin" instance=ExtResource("1_ubg26")]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="Reorder" type="VBoxContainer" parent="Margin/HBox"]
+layout_mode = 2
+
+[node name="MoveUp" type="Button" parent="Margin/HBox/Reorder"]
+custom_minimum_size = Vector2(50, 0)
+layout_mode = 2
+size_flags_vertical = 3
+text = "^"
+
+[node name="MoveDown" type="Button" parent="Margin/HBox/Reorder"]
+custom_minimum_size = Vector2(50, 0)
+layout_mode = 2
+size_flags_vertical = 3
+text = "v"
+
+[connection signal="pressed" from="Margin/HBox/LeftArea/HBoxContainer/Collapser" to="." method="ToggleCollapsed"]
+[connection signal="text_changed" from="Margin/HBox/LeftArea/Prompt" to="." method="HasChanged" unbinds=1]
+[connection signal="Changed" from="Margin/HBox/RightPanel/Margin/List" to="." method="HasChanged"]

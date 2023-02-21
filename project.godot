@@ -11,16 +11,20 @@ config_version=5
 [application]
 
 config/name="SmartChatter"
-run/main_scene="res://Map.tscn"
+run/main_scene="res://Editor/ProjectEditor.tscn"
 config/features=PackedStringArray("4.0", "Forward Plus")
 
 [display]
 
 window/subwindows/embed_subwindows=false
 
+[editor_plugins]
+
+enabled=PackedStringArray()
+
 [gui]
 
-theme/custom="res://BaseTheme.tres"
+theme/custom="res://Editor/BaseTheme.tres"
 
 [input]
 

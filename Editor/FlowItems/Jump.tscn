@@ -1,0 +1,130 @@
+[gd_scene load_steps=6 format=3 uid="uid://dwoec6uj8thtm"]
+
+[ext_resource type="Script" path="res://Editor/FlowItems/Jump.gd" id="1_s4pd0"]
+[ext_resource type="Script" path="res://Editor/FlowItems/ConnectDraw.gd" id="2_p214c"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_8xmg8"]
+font_size = 20
+outline_size = 10
+outline_color = Color(0, 0, 0, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_6gce8"]
+font_size = 20
+outline_size = 6
+outline_color = Color(0, 0, 0, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_aylte"]
+font_size = 20
+outline_size = 6
+outline_color = Color(0, 0, 0, 1)
+
+[node name="Jump" type="PanelContainer" node_paths=PackedStringArray("UpButton", "DownButton", "DeleteButton", "ColouredPanel")]
+self_modulate = Color(0.847059, 0.784314, 0.47451, 1)
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_s4pd0")
+UpButton = NodePath("Margin/HBox/Reorder/MoveUp")
+DownButton = NodePath("Margin/HBox/Reorder/MoveDown")
+DeleteButton = NodePath("Margin/HBox/VBoxContainer/HBoxContainer/Delete")
+ColouredPanel = NodePath(".")
+
+[node name="Margin" type="MarginContainer" parent="."]
+layout_mode = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="HBox" type="HBoxContainer" parent="Margin"]
+layout_mode = 2
+theme_override_constants/separation = 15
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Margin/HBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 15
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Margin/HBox/VBoxContainer"]
+layout_mode = 2
+
+[node name="Delete" type="Button" parent="Margin/HBox/VBoxContainer/HBoxContainer"]
+self_modulate = Color(0.988235, 0.482353, 0.482353, 1)
+custom_minimum_size = Vector2(30, 30)
+layout_mode = 2
+text = "X"
+
+[node name="Title" type="PanelContainer" parent="Margin/HBox/VBoxContainer/HBoxContainer"]
+self_modulate = Color(1, 1, 1, 0.439216)
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Label" type="Label" parent="Margin/HBox/VBoxContainer/HBoxContainer/Title"]
+layout_mode = 2
+text = "Jump"
+label_settings = SubResource("LabelSettings_8xmg8")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="FlowList" type="HBoxContainer" parent="Margin/HBox/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Margin/HBox/VBoxContainer/FlowList"]
+layout_mode = 2
+size_flags_vertical = 6
+text = "Flow List"
+label_settings = SubResource("LabelSettings_6gce8")
+
+[node name="FlowLists" type="OptionButton" parent="Margin/HBox/VBoxContainer/FlowList"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+size_flags_horizontal = 10
+alignment = 1
+
+[node name="StartOffset" type="HBoxContainer" parent="Margin/HBox/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label2" type="Label" parent="Margin/HBox/VBoxContainer/StartOffset"]
+layout_mode = 2
+size_flags_vertical = 6
+text = "Start Offset"
+label_settings = SubResource("LabelSettings_aylte")
+
+[node name="StartOffset" type="SpinBox" parent="Margin/HBox/VBoxContainer/StartOffset"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 10
+alignment = 1
+custom_arrow_step = 1.0
+select_all_on_focus = true
+
+[node name="Reorder" type="VBoxContainer" parent="Margin/HBox"]
+layout_mode = 2
+
+[node name="MoveUp" type="Button" parent="Margin/HBox/Reorder"]
+custom_minimum_size = Vector2(50, 0)
+layout_mode = 2
+size_flags_vertical = 3
+text = "^"
+
+[node name="LineStart" type="Control" parent="Margin/HBox/Reorder"]
+unique_name_in_owner = true
+self_modulate = Color(1, 1, 1, 0.47451)
+z_index = 10
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 6
+size_flags_stretch_ratio = 0.1
+script = ExtResource("2_p214c")
+
+[node name="MoveDown" type="Button" parent="Margin/HBox/Reorder"]
+custom_minimum_size = Vector2(50, 0)
+layout_mode = 2
+size_flags_vertical = 3
+text = "v"
+
+[connection signal="item_selected" from="Margin/HBox/VBoxContainer/FlowList/FlowLists" to="." method="FlowListSelect"]
+[connection signal="value_changed" from="Margin/HBox/VBoxContainer/StartOffset/StartOffset" to="." method="SetOffset"]

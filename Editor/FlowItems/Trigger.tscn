@@ -1,0 +1,78 @@
+[gd_scene load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://Editor/FlowItems/Trigger.gd" id="1_rost3"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_t55ll"]
+font_size = 20
+outline_size = 10
+outline_color = Color(0, 0, 0, 1)
+
+[node name="Trigger" type="PanelContainer" node_paths=PackedStringArray("UpButton", "DownButton", "DeleteButton", "ColouredPanel")]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_bottom = -576.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_rost3")
+UpButton = NodePath("MarginContainer/HBoxContainer/Reorder/MoveUp")
+DownButton = NodePath("MarginContainer/HBoxContainer/Reorder/MoveDown")
+DeleteButton = NodePath("MarginContainer/HBoxContainer/DeleteButton")
+ColouredPanel = NodePath(".")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+
+[node name="DeleteButton" type="Button" parent="MarginContainer/HBoxContainer"]
+self_modulate = Color(0.988235, 0.505882, 0.505882, 1)
+custom_minimum_size = Vector2(25, 25)
+layout_mode = 2
+text = "x"
+
+[node name="Title" type="Label" parent="MarginContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+text = " Trigger "
+label_settings = SubResource("LabelSettings_t55ll")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Panel" type="Panel" parent="MarginContainer/HBoxContainer/Title"]
+self_modulate = Color(1, 1, 1, 0.490196)
+show_behind_parent = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="Options" type="OptionButton" parent="MarginContainer/HBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Reorder" type="VBoxContainer" parent="MarginContainer/HBoxContainer"]
+layout_mode = 2
+
+[node name="MoveUp" type="Button" parent="MarginContainer/HBoxContainer/Reorder"]
+custom_minimum_size = Vector2(50, 0)
+layout_mode = 2
+size_flags_vertical = 3
+text = "^"
+
+[node name="MoveDown" type="Button" parent="MarginContainer/HBoxContainer/Reorder"]
+custom_minimum_size = Vector2(50, 0)
+layout_mode = 2
+size_flags_vertical = 3
+text = "v"

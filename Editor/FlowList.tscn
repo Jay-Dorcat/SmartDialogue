@@ -1,0 +1,219 @@
+[gd_scene load_steps=6 format=3]
+
+[ext_resource type="Script" path="res://Editor/FlowList.gd" id="1_bi48y"]
+[ext_resource type="PackedScene" path="res://Editor/FlowItems/SubFlowList.tscn" id="2_gudjg"]
+[ext_resource type="PackedScene" path="res://Editor/FlowItems/FlowNodeSelect.tscn" id="3_r257a"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_pnvwx"]
+font_size = 60
+outline_size = 20
+outline_color = Color(0, 0, 0, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_8msdq"]
+font_size = 20
+outline_size = 7
+outline_color = Color(0, 0, 0, 1)
+
+[node name="FlowList" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 2.0
+offset_top = 2.0
+offset_right = 373.0
+offset_bottom = 118.0
+script = ExtResource("1_bi48y")
+
+[node name="BackPanel" type="PanelContainer" parent="."]
+self_modulate = Color(0.513726, 0.894118, 0.988235, 1)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Pages" type="MarginContainer" parent="BackPanel"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="FlowDisplay[0]" type="HBoxContainer" parent="BackPanel/Pages"]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="VBox" type="VBoxContainer" parent="BackPanel/Pages/FlowDisplay[0]"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="DragBar" type="Button" parent="BackPanel/Pages/FlowDisplay[0]/VBox"]
+layout_mode = 2
+
+[node name="HBox2" type="HBoxContainer" parent="BackPanel/Pages/FlowDisplay[0]/VBox"]
+layout_mode = 2
+
+[node name="Name" type="LineEdit" parent="BackPanel/Pages/FlowDisplay[0]/VBox/HBox2"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Flow List #1"
+placeholder_text = "Name of Chat Flow"
+alignment = 1
+
+[node name="Options" type="Button" parent="BackPanel/Pages/FlowDisplay[0]/VBox/HBox2"]
+layout_mode = 2
+text = "Options"
+
+[node name="ListPanel" type="PanelContainer" parent="BackPanel/Pages/FlowDisplay[0]/VBox"]
+self_modulate = Color(0, 0, 0, 0.490196)
+layout_mode = 2
+
+[node name="ListMargin" type="MarginContainer" parent="BackPanel/Pages/FlowDisplay[0]/VBox/ListPanel"]
+layout_mode = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="List" parent="BackPanel/Pages/FlowDisplay[0]/VBox/ListPanel/ListMargin" instance=ExtResource("2_gudjg")]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="FlowNodeSelect" parent="BackPanel/Pages/FlowDisplay[0]/VBox" node_paths=PackedStringArray("SubList") instance=ExtResource("3_r257a")]
+layout_mode = 2
+size_flags_vertical = 3
+SubList = NodePath("../ListPanel/ListMargin/List")
+
+[node name="ResizeBar" type="Button" parent="BackPanel/Pages/FlowDisplay[0]"]
+layout_mode = 2
+size_flags_horizontal = 8
+
+[node name="Settings[1]" type="PanelContainer" parent="BackPanel/Pages"]
+unique_name_in_owner = true
+visible = false
+self_modulate = Color(0, 0, 0, 0.490196)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="Margin" type="MarginContainer" parent="BackPanel/Pages/Settings[1]"]
+layout_mode = 2
+theme_override_constants/margin_left = 15
+theme_override_constants/margin_top = 15
+theme_override_constants/margin_right = 15
+theme_override_constants/margin_bottom = 15
+
+[node name="SettingsButtons" type="VBoxContainer" parent="BackPanel/Pages/Settings[1]/Margin"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_constants/separation = 18
+
+[node name="Save" type="Button" parent="BackPanel/Pages/Settings[1]/Margin/SettingsButtons"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Save"
+
+[node name="Load" type="Button" parent="BackPanel/Pages/Settings[1]/Margin/SettingsButtons"]
+layout_mode = 2
+text = "Load"
+
+[node name="Reload" type="Button" parent="BackPanel/Pages/Settings[1]/Margin/SettingsButtons"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Reload"
+
+[node name="MakeUnique" type="Button" parent="BackPanel/Pages/Settings[1]/Margin/SettingsButtons"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Make Unique"
+
+[node name="GoBack" type="Button" parent="BackPanel/Pages/Settings[1]/Margin/SettingsButtons"]
+layout_mode = 2
+text = "Go Back"
+
+[node name="Delete" type="Button" parent="BackPanel/Pages/Settings[1]/Margin/SettingsButtons"]
+layout_mode = 2
+text = "Delete"
+
+[node name="Outdated[2]" type="PanelContainer" parent="BackPanel/Pages"]
+visible = false
+self_modulate = Color(0.494118, 0.196078, 0.196078, 0.533333)
+layout_mode = 2
+
+[node name="VBox" type="VBoxContainer" parent="BackPanel/Pages/Outdated[2]"]
+layout_mode = 2
+alignment = 1
+
+[node name="Title" type="Label" parent="BackPanel/Pages/Outdated[2]/VBox"]
+layout_mode = 2
+text = "Outdated"
+label_settings = SubResource("LabelSettings_pnvwx")
+horizontal_alignment = 1
+
+[node name="Reload" type="Button" parent="BackPanel/Pages/Outdated[2]/VBox"]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+text = "Reload"
+
+[node name="Load[3]" type="PanelContainer" parent="BackPanel/Pages"]
+visible = false
+self_modulate = Color(0, 0, 0, 0.384314)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="Margin" type="MarginContainer" parent="BackPanel/Pages/Load[3]"]
+layout_mode = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="VBox" type="VBoxContainer" parent="BackPanel/Pages/Load[3]/Margin"]
+layout_mode = 2
+size_flags_horizontal = 4
+alignment = 1
+
+[node name="Title" type="Label" parent="BackPanel/Pages/Load[3]/Margin/VBox"]
+layout_mode = 2
+text = "Load Flow List"
+label_settings = SubResource("LabelSettings_8msdq")
+
+[node name="Options" type="OptionButton" parent="BackPanel/Pages/Load[3]/Margin/VBox"]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="HBox" type="HBoxContainer" parent="BackPanel/Pages/Load[3]/Margin/VBox"]
+layout_mode = 2
+
+[node name="Load" type="Button" parent="BackPanel/Pages/Load[3]/Margin/VBox/HBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Load
+"
+
+[node name="Cancel" type="Button" parent="BackPanel/Pages/Load[3]/Margin/VBox/HBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Cancel
+"
+
+[connection signal="button_down" from="BackPanel/Pages/FlowDisplay[0]/VBox/DragBar" to="." method="SetMoving" binds= [true]]
+[connection signal="button_up" from="BackPanel/Pages/FlowDisplay[0]/VBox/DragBar" to="." method="SetMoving" binds= [false]]
+[connection signal="text_changed" from="BackPanel/Pages/FlowDisplay[0]/VBox/HBox2/Name" to="." method="NameChanged"]
+[connection signal="pressed" from="BackPanel/Pages/FlowDisplay[0]/VBox/HBox2/Options" to="." method="Page" binds= [1]]
+[connection signal="button_down" from="BackPanel/Pages/FlowDisplay[0]/ResizeBar" to="." method="SetResizing" binds= [true]]
+[connection signal="button_up" from="BackPanel/Pages/FlowDisplay[0]/ResizeBar" to="." method="SetResizing" binds= [false]]
+[connection signal="pressed" from="BackPanel/Pages/Settings[1]/Margin/SettingsButtons/Save" to="." method="Save"]
+[connection signal="pressed" from="BackPanel/Pages/Settings[1]/Margin/SettingsButtons/Load" to="." method="Page" binds= [3]]
+[connection signal="pressed" from="BackPanel/Pages/Settings[1]/Margin/SettingsButtons/Reload" to="." method="Reload"]
+[connection signal="pressed" from="BackPanel/Pages/Settings[1]/Margin/SettingsButtons/MakeUnique" to="." method="MakeUnique"]
+[connection signal="pressed" from="BackPanel/Pages/Settings[1]/Margin/SettingsButtons/GoBack" to="." method="Page" binds= [0]]
+[connection signal="pressed" from="BackPanel/Pages/Settings[1]/Margin/SettingsButtons/Delete" to="." method="Delete"]
+[connection signal="pressed" from="BackPanel/Pages/Outdated[2]/VBox/Reload" to="." method="Reload"]
+[connection signal="pressed" from="BackPanel/Pages/Load[3]/Margin/VBox/HBox/Load" to="." method="Load"]
+[connection signal="pressed" from="BackPanel/Pages/Load[3]/Margin/VBox/HBox/Cancel" to="." method="Page" binds= [1]]

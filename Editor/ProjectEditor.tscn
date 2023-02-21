@@ -1,0 +1,75 @@
+[gd_scene load_steps=2 format=3 uid="uid://colctxx2621ji"]
+
+[ext_resource type="Script" path="res://Editor/ProjectEditor.gd" id="1_jjis2"]
+
+[node name="ProjectEditor" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_jjis2")
+
+[node name="Tabs" type="TabContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Project" type="PanelContainer" parent="Tabs"]
+layout_mode = 2
+
+[node name="HBox" type="HBoxContainer" parent="Tabs/Project"]
+layout_mode = 2
+alignment = 1
+
+[node name="LoadVBox" type="VBoxContainer" parent="Tabs/Project/HBox"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+alignment = 1
+
+[node name="Label" type="Label" parent="Tabs/Project/HBox/LoadVBox"]
+layout_mode = 2
+text = "Load"
+
+[node name="LoadOptions" type="OptionButton" parent="Tabs/Project/HBox/LoadVBox"]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="CreateVBox" type="VBoxContainer" parent="Tabs/Project/HBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+alignment = 1
+
+[node name="ProjectRoot" type="LineEdit" parent="Tabs/Project/HBox/CreateVBox"]
+unique_name_in_owner = true
+layout_mode = 2
+placeholder_text = "Project Root"
+
+[node name="Button" type="Button" parent="Tabs/Project/HBox/CreateVBox"]
+layout_mode = 2
+text = "Select Root"
+
+[node name="FileDialog" type="FileDialog" parent="Tabs/Project/HBox/CreateVBox/Button"]
+title = "Open a Directory"
+size = Vector2i(403, 158)
+ok_button_text = "Select This Folder"
+file_mode = 2
+access = 2
+
+[node name="Button2" type="Button" parent="Tabs/Project/HBox/CreateVBox"]
+layout_mode = 2
+text = "Create"
+
+[node name="VBox3" type="VBoxContainer" parent="Tabs/Project/HBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+alignment = 1
+
+[connection signal="pressed" from="Tabs/Project/HBox/CreateVBox/Button" to="Tabs/Project/HBox/CreateVBox/Button/FileDialog" method="popup_centered" binds= [Vector2i(600, 600)]]
+[connection signal="dir_selected" from="Tabs/Project/HBox/CreateVBox/Button/FileDialog" to="Tabs/Project/HBox/CreateVBox/ProjectRoot" method="set_text"]
+[connection signal="pressed" from="Tabs/Project/HBox/CreateVBox/Button2" to="." method="NewProject"]

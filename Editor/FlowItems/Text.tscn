@@ -1,0 +1,119 @@
+[gd_scene load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://Editor/FlowItems/Text.gd" id="1_gcgbd"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_wtp01"]
+font_size = 20
+outline_size = 10
+outline_color = Color(0, 0, 0, 1)
+
+[node name="Text" type="PanelContainer" node_paths=PackedStringArray("UpButton", "DownButton", "DeleteButton", "ColouredPanel")]
+self_modulate = Color(0.25098, 0.580392, 0.384314, 1)
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_gcgbd")
+UpButton = NodePath("Margin/HBox/Reorder/MoveUp")
+DownButton = NodePath("Margin/HBox/Reorder/MoveDown")
+DeleteButton = NodePath("Margin/HBox/VBox/HBox/DeleteButton")
+ColouredPanel = NodePath(".")
+
+[node name="Margin" type="MarginContainer" parent="."]
+layout_mode = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="HBox" type="HBoxContainer" parent="Margin"]
+layout_mode = 2
+size_flags_vertical = 0
+
+[node name="VBox" type="VBoxContainer" parent="Margin/HBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 0
+
+[node name="HBox" type="HBoxContainer" parent="Margin/HBox/VBox"]
+layout_mode = 2
+
+[node name="DeleteButton" type="Button" parent="Margin/HBox/VBox/HBox"]
+self_modulate = Color(0.988235, 0.431373, 0.431373, 1)
+custom_minimum_size = Vector2(30, 30)
+layout_mode = 2
+text = "X"
+
+[node name="Label" type="Label" parent="Margin/HBox/VBox/HBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Text Box"
+label_settings = SubResource("LabelSettings_wtp01")
+horizontal_alignment = 1
+
+[node name="Panel" type="Panel" parent="Margin/HBox/VBox/HBox/Label"]
+self_modulate = Color(0.988974, 0.988974, 0.988974, 0.490196)
+show_behind_parent = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Collapser" type="Button" parent="Margin/HBox/VBox/HBox"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Collapse"
+
+[node name="Textbox" type="TextEdit" parent="Margin/HBox/VBox"]
+unique_name_in_owner = true
+layout_mode = 2
+context_menu_enabled = false
+scroll_smooth = true
+scroll_v_scroll_speed = 10.0
+scroll_fit_content_height = true
+caret_blink = true
+caret_blink_interval = 0.45
+
+[node name="TextPreview" type="RichTextLabel" parent="Margin/HBox/VBox"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 35)
+layout_mode = 2
+focus_mode = 2
+bbcode_enabled = true
+fit_content = true
+selection_enabled = true
+
+[node name="Panel" type="Panel" parent="Margin/HBox/VBox/TextPreview"]
+self_modulate = Color(0, 0, 0, 0.486275)
+show_behind_parent = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="Reorder" type="VBoxContainer" parent="Margin/HBox"]
+layout_mode = 2
+
+[node name="MoveUp" type="Button" parent="Margin/HBox/Reorder"]
+custom_minimum_size = Vector2(50, 0)
+layout_mode = 2
+size_flags_vertical = 3
+text = "^"
+
+[node name="MoveDown" type="Button" parent="Margin/HBox/Reorder"]
+custom_minimum_size = Vector2(50, 0)
+layout_mode = 2
+size_flags_vertical = 3
+text = "v"
+
+[connection signal="pressed" from="Margin/HBox/VBox/HBox/Collapser" to="." method="ToggleCollapsed"]
+[connection signal="focus_exited" from="Margin/HBox/VBox/Textbox" to="." method="EditorUnfocused"]
+[connection signal="text_changed" from="Margin/HBox/VBox/Textbox" to="." method="HasChanged"]
+[connection signal="focus_entered" from="Margin/HBox/VBox/TextPreview" to="." method="PreviewFocused"]

@@ -1,0 +1,92 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://Editor/FlowItems/FlowNodeSelect.gd" id="1_lpjn4"]
+
+[node name="FlowNodeSelect" type="Button"]
+text = " Create New Item "
+script = ExtResource("1_lpjn4")
+
+[node name="Canvas" type="CanvasLayer" parent="."]
+visible = false
+
+[node name="Backdrop" type="ColorRect" parent="Canvas"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.266667)
+
+[node name="Panel" type="PanelContainer" parent="Canvas"]
+self_modulate = Color(0.627451, 0.988235, 0.611765, 1)
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -2.0
+offset_top = -2.0
+offset_right = 2.0
+offset_bottom = 2.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Margin" type="MarginContainer" parent="Canvas/Panel"]
+layout_mode = 2
+theme_override_constants/margin_left = 15
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 15
+theme_override_constants/margin_bottom = 5
+
+[node name="VBox" type="VBoxContainer" parent="Canvas/Panel/Margin"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Canvas/Panel/Margin/VBox"]
+layout_mode = 2
+text = "Create New Item"
+
+[node name="HSeparator" type="HSeparator" parent="Canvas/Panel/Margin/VBox"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="Text" type="Button" parent="Canvas/Panel/Margin/VBox"]
+layout_mode = 2
+text = "Text Box"
+
+[node name="Selection" type="Button" parent="Canvas/Panel/Margin/VBox"]
+layout_mode = 2
+text = "Selection"
+
+[node name="Jump" type="Button" parent="Canvas/Panel/Margin/VBox"]
+layout_mode = 2
+text = "Jump"
+
+[node name="Operator" type="Button" parent="Canvas/Panel/Margin/VBox"]
+layout_mode = 2
+text = "Operator"
+
+[node name="Branch" type="Button" parent="Canvas/Panel/Margin/VBox"]
+layout_mode = 2
+text = "Branch"
+
+[node name="Trigger" type="Button" parent="Canvas/Panel/Margin/VBox"]
+layout_mode = 2
+text = "Trigger"
+
+[node name="HSeparator2" type="HSeparator" parent="Canvas/Panel/Margin/VBox"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="Cancel" type="Button" parent="Canvas/Panel/Margin/VBox"]
+self_modulate = Color(0.988235, 0.505882, 0.505882, 1)
+layout_mode = 2
+text = "Cancel"
+
+[connection signal="pressed" from="." to="." method="Open"]
+[connection signal="pressed" from="Canvas/Panel/Margin/VBox/Text" to="." method="AddText"]
+[connection signal="pressed" from="Canvas/Panel/Margin/VBox/Selection" to="." method="AddSelection"]
+[connection signal="pressed" from="Canvas/Panel/Margin/VBox/Jump" to="." method="AddJump"]
+[connection signal="pressed" from="Canvas/Panel/Margin/VBox/Operator" to="." method="AddOperator"]
+[connection signal="pressed" from="Canvas/Panel/Margin/VBox/Branch" to="." method="AddBranch"]
+[connection signal="pressed" from="Canvas/Panel/Margin/VBox/Trigger" to="." method="AddTrigger"]
+[connection signal="pressed" from="Canvas/Panel/Margin/VBox/Cancel" to="." method="Cancel"]

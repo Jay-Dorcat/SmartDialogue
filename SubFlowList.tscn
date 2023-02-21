@@ -1,9 +1,0 @@
-[gd_scene load_steps=2 format=3 uid="uid://yppcnsofu0m7"]
-
-[ext_resource type="Script" path="res://SubFlowList.gd" id="1_5xfxv"]
-
-[node name="List" type="VBoxContainer"]
-size_flags_horizontal = 3
-size_flags_vertical = 0
-theme_override_constants/separation = 5
-script = ExtResource("1_5xfxv")
