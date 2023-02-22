@@ -1,2 +1,9 @@
 # Godot 4+ specific ignores
 .godot/
+# No Push
+DialogueExport/
+Projects/
+SavedFlowMaps/
+TestGame.tscn
+TestGame.gd
+
